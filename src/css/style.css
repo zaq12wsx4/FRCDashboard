@@ -25,6 +25,10 @@ button, input[type="text"], input[type="number"], .select-container, select {
     cursor: pointer;
     outline: 0;
 }
+button{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
 .select-container {
     padding: 0;
     display: inline-block;
@@ -52,42 +56,70 @@ body > * {
 #timer {
     font-family: monospace;
     display: block;
-    height: 20vh;
-    width: 30vw;
+    height: 15vh;
+    width: 20vw;
     top: 0;
     left: 0;
-    font-size: 20vh;
+    font-size: 12vh;
     line-height: .8;
 }
+#robot-state {
+    margin-top: 12vh
+}
 header {
-    width: 20vw;
+    width: 30vw;
     height: 20vh;
     top: 0;
-    left: 30vw;
+    left: 14vw;
     color: white;
 }
-#camera {
+#camera1 {
     padding: 0;
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 50vw;
-    height: 80vh;
+    width: 40vw;
+    height: 75vh;
     overflow: hidden;
     background-color: #333;
+    background-image: url('PUT PRIMARY SOURCE HERE');
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
     /*background-image: url('LINK TO CAMERA SOURCE HERE');*/
 }
+#camera2 {
+    padding: 0;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 40vw;
+    height: 75vh;
+    overflow: hidden;
+    background-color: #333;
+    background-image: url('PUT PRIMARY SOURCE HERE');
+    /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
+    /*background-image: url('LINK TO CAMERA SOURCE HERE');*/
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 article {
     top: 0;
-    left: 50vw;
+    left: 40vw;
     height: 100vh;
-    width: 35vw;
+    width: 20vw;
 }
 svg * {
     stroke: white;
     fill: #222;
-    stroke-width: 2;
     -webkit-transform-origin: center;
     -ms-transform-origin: center;
     transform-origin: center;
@@ -99,42 +131,45 @@ text {
     fill: white;
 }
 #gyro {
-    width: 175px;
-    height: 175px;
-    margin-left: 30px;
-    margin-top: 15px;
+    width: 20vw;
+    height: 50vh;
+    left: 0;
+
+    stroke-width: 1;
 }
 #gyro-arm {
     -webkit-transform-origin: bottom;
     -ms-transform-origin: bottom;
     transform-origin: bottom;
 }
+#midleft-pad{
+  fill: #4d8ad1;
+}
+#midright-pad{
+  fill: #d16868
+}
 #gyro-number {
     font-size: 25px;
     text-anchor: middle;
 }
-#robot-diagram {
-    position: absolute;
-    bottom: 1px;
-    right: 1vw;
+.wheels {
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
 }
-#robot-arm {
-    -webkit-transform-origin: right;
-    -ms-transform-origin: right;
-    transform-origin: right;
-}
-#team {
-    font-size: 28px;
-    letter-spacing: -1px;
+#FRC-Field{
+    width: 15vw;
+    height: 50vh;
+    margin-left: 1vw;
 }
 aside {
     right: 0;
     top: 0;
-    width: 15vw;
-    height: 100vh;
+    width: 40vw;
+    height: 25vh;
 }
 aside > * {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 #login {
     position: fixed;

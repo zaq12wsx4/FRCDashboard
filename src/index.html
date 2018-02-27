@@ -5,58 +5,137 @@
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
     <link href="css/style.css" rel="stylesheet">
+    <link id="theme-link" rel="stylesheet" href>
+    <link rel="stylesheet" href="css/tuning.css">
+    <link rel="stylesheet" href="css/blue.css">
 </head>
 
 <body>
     <div id="timer">2:15</div>
+    <!-- Tells whether robot is connected to dashboard. -->
+    <div id="robot-state">Unknown state</div>
+    <button id="connect-button">Connect</button>
     <header>
-        <!-- Tells whether robot is connected to dashboard. -->
-        <div id="robot-state">Unknown state</div>
-        <button id="connect-button">Connect</button>
+        <div>
+          <button id="tuning-button">Tuning</button>
+        </div>
+        <div id="tuning">
+            <input type="text" placeholder="Property" id="name">
+            <input type="text" placeholder="Value" id="value">
+            <br />
+            <button id="set">Set</button>
+            <button id="get">Get</button>
+        </div>
     </header>
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
         More explanation in that CSS rule. -->
-    <div id="camera"></div>
+    <div id="camera1"></div>
+    <div id="camera2"></div>
     <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
     <article>
         <!-- Gyroscope -->
-        <svg id="gyro">
-            <circle cx="85" cy="85" r="83"></circle>
-            <circle cx="85" cy="85" r="50"></circle>
-            <rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
-            <text id="gyro-number" x="90" y="115">0º</text>
+        <svg
+          id="gyro"
+          viewBox="0 0 275 275"
+          preserveAspectRatio="xMidYMid meet">
+            <circle cx="126" cy="126" r="75"></circle>
+            <rect id="gyro-arm" x="120" y="58" width="10" height="60"></rect>
+            <text id="gyro-number" x="126" y="150">0º</text>
+            <rect class='wheels' id="fl-wheel" x="26" y="26" width="10" height="40"/>
+            <rect class='wheels' id="bl-wheel" x="26" y="200" width="10" height="40"/>
+            <rect class='wheels' id="fr-wheel" x="224" y="26" width="10" height="40"/>
+            <rect class='wheels' id="br-wheel" x="224" y="200" width="10" height="40"/>
+
         </svg>
-        <!-- Example robot diagram, arm moves when encoder value changes -->
-        <svg id="robot-diagram" width="332" height="450">
-            <text x="40" y="340">Example SVG Robot Diagram</text>
-            <rect x="75" y="360" width="230" height="40"></rect>
-            <rect x="85" y="370" width="210" height="40"></rect>
-            <rect id="robot-arm" x="5" y="375" width="80" height="10"></rect>
-            <circle cx="100" cy="410" r="25"></circle>
-            <circle cx="260" cy="410" r="25"></circle>
-            <rect x="60" y="380" width="250" height="30"></rect>
-            <text id="team" x="185" y="405" text-anchor="middle">####</text>
+
+        <svg
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:cc="http://creativecommons.org/ns#"
+           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:svg="http://www.w3.org/2000/svg"
+           xmlns="http://www.w3.org/2000/svg"
+           id="FRC-Field"
+           version="1.1"
+           viewBox="0 0 250 250"
+           preserveAspectRatio="xMidYMid meet">
+          <g
+             id="layer1">
+            <path
+               id="arena"
+               d="M 79.98437,260.87093 H 197.385 l 12.60276,-15.40835 V -7.892217 L 197.385,-22.976241 79.98437,-23.043056 67.44958,-7.892217 V 245.46258 Z" />
+            <path
+               id="top-base"
+               d="m 167.2533,91.16082 c 0,8.346975 0,16.69395 0,25.04092 -19.24529,0 -38.49058,0 -57.73586,0 0,-8.34697 0,-16.693945 0,-25.04092 19.24528,0 38.49057,0 57.73586,0 z"/>
+            <path
+               id="bottom-base"
+               d="m 167.56511,121.40881 c 0,8.34698 0,16.69395 0,25.04093 -19.24529,0 -38.49058,0 -57.73586,0 0,-8.34698 0,-16.69395 0,-25.04093 19.24528,0 38.49057,0 57.73586,0 z"/>
+            <path
+               id="topleft-pad"
+               d="m 107.24957,40.227338 c 0,6.646081 0,13.292162 0,19.938243 5.02393,0 10.04787,0 15.0718,0 0,-6.646081 0,-13.292162 0,-19.938243 -5.02393,0 -10.04787,0 -15.0718,0 z" />
+            <path
+               id="topright-pad"
+               d="m 169.85188,40.416322 c 0,6.630333 0,13.260665 0,19.890998 -4.92944,0 -9.85888,0 -14.78832,0 0,-6.630333 0,-13.260665 0,-19.890998 4.92944,0 9.85888,0 14.78832,0 z" />
+            <path
+               id="bottomright-pad"
+               d="m 169.86392,177.37567 c 0,6.64833 0,13.29666 0,19.94499 -4.97789,0 -9.95579,0 -14.93368,0 0,-6.64833 0,-13.29666 0,-19.94499 4.97789,0 9.95579,0 14.93368,0 z" />
+            <path
+               id="bottomleft-pad"
+               d="m 122.32138,177.38545 c 0,6.66183 0,13.32366 0,19.98549 -5.02393,0 -10.04787,0 -15.0718,0 0,-6.66183 0,-13.32366 0,-19.98549 5.02393,0 10.04787,0 15.0718,0 z"/>
+            <path
+               id="midleft-pad"
+               d="m 114.28938,108.75914 c 0,6.72483 0,13.44966 0,20.17449 -5.04757,0 -10.09513,0 -15.1427,0 0,-6.72483 0,-13.44966 0,-20.17449 5.04757,0 10.09513,0 15.1427,0 z"/>
+            <path
+               id="midright-pad"
+               d="m 177.74213,108.87726 c 0,6.66183 0,13.32366 0,19.98549 -4.91369,0 -9.82738,0 -14.74107,0 0,-6.66183 0,-13.32366 0,-19.98549 4.91369,0 9.82738,0 14.74107,0 z" />
+            <path
+               id="top-bar"
+               d="m 155.13068,47.749958 c -10.85782,0 -21.71565,0 -32.57347,0 0,1.859751 0,3.719502 0,5.579253 10.85782,0 21.71565,0 32.57347,0 0,-1.859751 0,-3.719502 0,-5.579253 z" />
+            <path
+               id="mid-bar"
+               d="m 114.47837,116.24779 c 16.20573,0 32.41146,0 48.61719,0 0,1.7009 0,3.40179 0,5.10269 -16.20573,0 -32.41146,0 -48.61719,0 0,-1.7009 0,-3.40179 0,-5.10269 z" />
+            <path
+               id="bottom-bar"
+               d="m 154.92184,184.51974 c -10.81169,0 -21.62339,0 -32.43508,0 0,1.84264 0,3.68527 0,5.52791 10.81169,0 21.62339,0 32.43508,0 0,-1.84264 0,-3.68527 0,-5.52791 z" />
+          </g>
         </svg>
+
     </article>
     <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
     <aside>
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
             The <p> below then says the value. -->
-        <div id="example-section">
+        <!-- <div id="example-section">
             <button id="example-button">Change example value</button>
             <p id="example-readout">Value is undefined</p>
         </div>
-        <!-- Autonomous selector -->
+         Autonomous selector
         <div class="select-container">
             <select id="auto-select">
                 <option>No auto modes found</option>
-                <!-- This gets populated by JS -->
+                 This gets populated by JS
             </select>
         </div>
         <div>
             <p>Adjust arm height</p>
             <input id="arm-position" type="range" min="0" max="1200" value="770">
+        </div> -->
+<!-- USEFUL CRAP -->
+        <div class="row">
+          <div class="column">
+            <p>Team Alliance:</p>
+            <div class="select-container">
+                <select id='color-select'>
+                    <option>Red</option>
+                    <option>Blue</option>
+                </select>
+            </div>
+          </div>
+          <div class="column">
+            <div>
+            </div>
+          </div>
         </div>
+<!--                -->
     </aside>
     <div id="login">
         <input id="connect-address" type="text" value="localhost" disabled>
@@ -65,6 +144,8 @@
     <script src="networktables/networktables.js"></script>
     <script src="connection.js"></script>
     <script src="ui.js"></script>
+    <script src="components/themes.js"></script>
+    <script src="components/tuning.js"></script>
 </body>
 
 </html>
