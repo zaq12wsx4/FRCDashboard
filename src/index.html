@@ -14,7 +14,6 @@
     <div id="timer">2:15</div>
     <!-- Tells whether robot is connected to dashboard. -->
     <div id="robot-state">Unknown state</div>
-    <button id="connect-button">Connect</button>
     <header>
         <div>
           <button id="tuning-button">Tuning</button>
@@ -129,9 +128,18 @@
                     <option>Blue</option>
                 </select>
             </div>
+            <p>Field side:</p>
+            <div class="select-container">
+                <select id='position-select'>
+                    <option>Left</option>
+                    <option>Middle</option>
+                    <option>Right</option>
+                </select>
+            </div>
           </div>
           <div class="column">
             <div>
+              <button id="connect-button">Connect</button>
             </div>
           </div>
         </div>
