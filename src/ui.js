@@ -24,9 +24,11 @@ let ui = {
         tlpad: document.getElementById('topleft_pad'),
         trpad: document.getElementById('topright_pad')
     },
-    colorselect: document.getElementById('color-select'),
+    color: {
+      selector: document.getElementById('color-select'),
+      val: "Nan"
+    },
     armPosition: document.getElementById('arm-position'),
-    positionselect: document.getElementById('position-select')
 };
 
 // Key Listeners
@@ -96,21 +98,85 @@ NetworkTables.addKeyListener('/robot/time', (key, value) => {
 });
 
 // ----------------------------------------------------------------------------------------------------------------
-// When game starts, wait for field code
-//   When recieve the field setup string (ex. lrr) {
-//     str alliance =  get alliance color
-//     str setup = get field setup
-//     front
-//     for (i = 0, i < setup[].length, i++) {
-//       var temp_letter = setup.charAt(i)
-//       if (i = 0) {
-//         if (temp_letter = 'l') {
-//           ui.pad.blpad.animate().attr({ fill: '#f03' })
-//       }
-//     }
-//   }
-// }
+NetworkTables.addKeyListener('/SmartDashboard/Game Key', (key, value) => {
+  // front
+  for (i = 0, i < value.length, i++) {
+    var temp_letter = value.charAt(i)
+    var hexb = '#4d8ad1';
+    var hexr = '#d16868';
+    if ui.color.selector = "Red"{
 
+      if (i = 0) {
+        if (temp_letter = 'l') {
+          ui.pad.blpad.style.fill = hexr;
+          ui.pad.brpad.style.fill = hexb;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.blpad.style.fill = hexb;
+          ui.pad.brpad.style.fill = hexr;
+        }
+      }
+
+      if (i = 1) {
+        if (temp_letter = 'l') {
+          ui.pad.mlpad.style.fill = hexr;
+          ui.pad.mrpad.style.fill = hexb;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.mlpad.style.fill = hexb;
+          ui.pad.mrpad.style.fill = hexr;
+        }
+      }
+
+      if (i = 2) {
+        if (temp_letter = 'l') {
+          ui.pad.tlpad.style.fill = hexr;
+          ui.pad.trpad.style.fill = hexb;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.tlpad.style.fill = hexb;
+          ui.pad.trpad.style.fill = hexr;
+        }
+      }
+    }
+
+    if ui.color.selector = "Blue"{
+
+      if (i = 0) {
+        if (temp_letter = 'l') {
+          ui.pad.blpad.style.fill = hexb;
+          ui.pad.brpad.style.fill = hexr;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.blpad.style.fill = hexr;
+          ui.pad.brpad.style.fill = hexb;
+        }
+      }
+
+      if (i = 1) {
+        if (temp_letter = 'l') {
+          ui.pad.mlpad.style.fill = hexb;
+          ui.pad.mrpad.style.fill = hexr;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.mlpad.style.fill = hexr;
+          ui.pad.mrpad.style.fill = hexb;
+        }
+      }
+
+      if (i = 2) {
+        if (temp_letter = 'l') {
+          ui.pad.tlpad.style.fill = hexb;
+          ui.pad.trpad.style.fill = hexr;
+        }
+        if (temp_letter = 'r') {
+          ui.pad.tlpad.style.fill = hexr;
+          ui.pad.trpad.style.fill = hexb;
+        }
+      }
+    }
+  }
+});
 
 
 // Load list of prewritten autonomous modes
@@ -134,6 +200,10 @@ NetworkTables.addKeyListener('/robot/time', (key, value) => {
 //     ui.autoSelect.value = value;
 // });
 
+NetworkTables.addKeyListener('/SmartDashboard/Team Color', (key, value) => {
+    ui.color.val = value;
+});
+
 // The rest of the doc is listeners for UI elements being clicked on
 // ui.example.button.onclick = function() {
 //     // Set NetworkTables values to the opposite of whether button has active class.
@@ -144,11 +214,10 @@ ui.gyro.container.onclick = function() {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
+    updateGyro('/SmartDashboard/Heading', ui.gyro.val);
 };
-ui.positionselect.onchange = function() {
-    NetworkTables.putValue('/SmartDashboard/Robot Starting Position', this.value);
-};
+ui.color.selector.onchange = function() {
+    NetworkTables.putValue('/SmartDashboard/Team Color', this.value);
 // Update NetworkTables when autonomous selector is changed
 // ui.autoSelect.onchange = function() {
 //     NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);
